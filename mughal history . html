@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mughal History with Hamid Mughal</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body, html {
+        font-family: "Arial", sans-serif;
+        direction: rtl;
+        background: #f0f0f0;
+        height: 100%;
+    }
+
+    .background {
+        background-image: url('flowers.jpg');
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    .background::before {
+        content:"";
+        position:absolute; top:0; left:0; right:0; bottom:0;
+        background: rgba(255,255,255,0.25);
+        z-index: -1;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.95);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    .card:hover { transform: translateY(-5px) scale(1.02); }
+    .card img { width: 100px; margin: 0 auto 15px; display: block; }
+    input, select, button { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:1px solid #ccc; }
+    button { background-color: #4CAF50; color:white; border:none; font-weight:bold; cursor:pointer; transition: background 0.3s; }
+    button:hover { background-color:#45a049; }
+
+    #history {
+        display: none;
+        background: rgba(255,255,255,0.95);
+        margin: 20px auto;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        overflow-y: auto;
+        max-height: 80vh;
+        width: 90%;
+        max-width: 1000px;
+    }
+    #story { line-height:1.8; text-align:justify; }
+    h1, h2, h3 { text-align:center; margin-bottom:15px; }
+
+    @media (max-width:768px) {
+        .card { max-width: 95%; padding: 20px; }
+        #history { width:95%; max-width:100%; padding:15px; }
+        #story { font-size:16px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="background">
+    <div class="card" id="loginCard">
+        <img src="logo.png" alt="Logo">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="name" placeholder="نام" required>
+            <input type="number" id="age" placeholder="عمر" required>
+            <select id="country" required>
+                <option value="">ملک منتخب کریں</option>
+                <option value="Pakistan">پاکستان</option>
+                <option value="India">ہندوستان</option>
+                <option value="Bangladesh">بنگلہ دیش</option>
+            </select>
+            <select id="district" required>
+                <option value="">ضلع منتخب کریں</option>
+            </select>
+            <button type="submit">شروع کریں</button>
+        </form>
+    </div>
+</div>
+
+<div class="card" id="history">
+    <img src="logo.png" alt="Logo">
+    <h1>Mughal History with Hamid Mughal</h1>
+    <div id="story"></div>
+</div>
+
+<script>
+const districts = {
+    "Pakistan": ["Karachi","Lahore","Islamabad","Multan","Peshawar"],
+    "India": ["Delhi","Agra","Lucknow","Jaipur","Mumbai"],
+    "Bangladesh": ["Dhaka","Chittagong","Khulna","Sylhet","Rajshahi"]
+};
+
+document.getElementById("country").addEventListener("change",function(){
+    const country=this.value;
+    const districtSelect=document.getElementById("district");
+    districtSelect.innerHTML="<option value=''>ضلع منتخب کریں</option>";
+    if(districts[country]){
+        districts[country].forEach(d=>{
+            const option=document.createElement("option");
+            option.value=d;
+            option.text=d;
+            districtSelect.appendChild(option);
+        });
+    }
+});
+
+document.getElementById("loginForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    document.querySelector(".background").style.display="none";
+    const historyCard=document.getElementById("history");
+    historyCard.style.display="block";
+
+    // ---------- Full Story Content ----------
+    const storyContent = `
+<p>مغل قوم کی تاریخ بہت قدیم اور دلچسپ ہے، جس کی ابتدا وسطی ایشیا کے علاقوں سے ہوئی جہاں بابر نے اپنی شجاعت، حکمت اور علم کی بنیاد پر ایک عظیم سلطنت قائم کی۔ بابر نہ صرف ایک جنگجو تھا بلکہ ایک دانشمند اور شاعر بھی تھا، جس نے اپنی فتوحات کے دوران عدل و انصاف اور قیادت کے اصولوں کو اہمیت دی۔ بابر کے بعد اکبر نے سلطنت کو مزید مضبوط کیا اور اپنے دور میں عدل و رواداری کو فروغ دیا، مختلف مذاہب اور ثقافتوں کے لوگوں کو مساوی حقوق دئیے اور عدالتوں میں شفافیت اور انصاف قائم کیا۔ اکبر کے دربار میں فنون لطیفہ، موسیقی، مصوری اور شاعری کو بہت ترقی ملی، جس سے سلطنت میں خوشحالی اور ثقافتی ترقی کے آثار نمایاں ہوئے۔ اس کے بعد جہانگیر نے اپنے والد کی میراث کو جاری رکھتے ہوئے باغبانی، فنون اور عدالتی نظام میں اصلاحات کیں۔ جہانگیر کے دور میں مغل سلطنت میں استحکام آیا اور فنون لطیفہ کے شعبے میں بے پناہ ترقی ہوئی۔ شاہ جہاں نے اپنی دور حکومت میں تعمیرات اور فنون لطیفہ کو نئی بلندیوں تک پہنچایا، جس میں تاج محل سب سے نمایاں اور مشہور مثال ہے۔ شاہ جہاں نے اپنی سلطنت میں تعمیراتی منصوبوں اور عدالتی نظام کو مضبوطی سے نافذ کیا، اور مغل فن تعمیر کی دنیا بھر میں پہچان بنائی۔ اورنگزیب نے سلطنت کو اس کی عظمت کی چوٹی تک پہنچایا، مگر اس نے سخت مذہبی اصولوں اور انتظامی پالیسیوں کو نافذ کیا، جس سے مغل سلطنت کے مختلف حصوں میں سیاست اور سماجی حالات پیچیدہ ہوئے۔ مغل حکمرانوں کی قیادت، ان کے سیاسی فیصلے، اور فنون لطیفہ، ادب اور ثقافت کے فروغ کی کہانی آج بھی تاریخدانوں کے لیے تحقیق کا مرکز ہے۔ مغل دور میں زراعت، تجارت، فوجی منصوبہ بندی اور عالمی تعلقات کے شعبے میں بہت ترقی ہوئی، جس سے سلطنت کو مضبوط اور مستحکم بنایا گیا۔ مغل سلطنت کے فن تعمیر، خاص طور پر مساجد، قلعے اور محلات آج بھی دنیا کے عجائبات میں شمار ہوتے ہیں۔ مغل بادشاہوں کے خطابات اور یادداشتیں ہمیں ان کی شخصیت، سوچ اور حکمرانی کے اصولوں سے روشناس کراتی ہیں۔ مغل قوم کی علمی اور ادبی خدمات نے اردو، فارسی اور ہندی ادب میں نمایاں حصہ ڈالا۔ ان کی شاعری، نثر اور خطوط آج بھی ادب اور تاریخ کے طلبہ کے لیے مشعل راہ ہیں۔ مغل سلطنت میں خواتین کا کردار، خاص طور پر سلطنت کی سیاسی اور ثقافتی زندگی میں ان کی شمولیت، اہمیت رکھتا تھا۔ مغل دربار کی تفصیلات، رسومات اور تہوار آج بھی تاریخی حوالوں اور فنون کی عکاسی کرتے ہیں۔ مغل بادشاہوں کی فلاحی پالیسیاں اور عوامی خدمات بھی تاریخی مطالعے میں اہم مقام رکھتی ہیں۔ مغل دور میں سڑکوں، پلوں، باغات اور پانی کے ذخائر کی تعمیر نے عوام کی زندگی کو آسان بنایا اور سلطنت کی معیشت کو مستحکم کیا گیا۔ مغل فوجیوں کی تربیت، فوجی حکمت عملی اور جنگی منصوبہ بندی کے اصول آج بھی عسکری تاریخ میں زیر مطالعہ ہیں۔ مغل بادشاہوں کی عدل و انصاف کی روایت، ان کے دور کی عدالتوں میں سنجیدگی اور نظم و ضبط نے سلطنت کو مضبوط بنایا۔ مغل سلطنت کے آثار اور یادگاریں آج بھی دنیا بھر کے سیاحوں کو متوجہ کرتی ہیں۔ مغل قوم کے ثقافتی ورثے میں موسیقی، رقص، مصوری، خطاطی اور دستکاری کے بے شمار نمونے موجود ہیں۔ مغل بادشاہوں نے اپنے دور میں مختلف علاقوں سے ماہرین اور فنکاروں کو دربار میں شامل کر کے فنون کو فروغ دیا۔ مغل دور کی معیشت، زراعت اور تجارت نے سلطنت کے ہر حصے میں خوشحالی پیدا کی۔ مغل قوم کی سیر و سیاحت، معاشرتی تعلقات اور تہذیب نے ہندوستانی تاریخ میں اہم کردار ادا کیا۔ مغل دور میں علم، فلسفہ اور مذہب کے میدان میں بھی تحقیق اور ترقی کی روشنی پھیلی۔ مغل سلطنت کی فوج، سیاست اور انتظامی نظام کی تفصیلات آج بھی طلبہ اور محققین کے لیے رہنمائی فراہم کرتی ہیں۔ مغل بادشاہوں کی شخصیت، ان کی حکمرانی کے اصول اور عوامی خدمات آج بھی تاریخدانوں کے لیے تحقیق کا اہم حصہ ہیں۔ مغل قوم کی میراث اور ثقافت نے ہندوستان کی تاریخ اور تہذیب پر گہرے اثرات مرتب کیے۔ مغل فن تعمیر، ادب، شاعری اور ثقافت کی مثالیں آج بھی دنیا بھر میں مشہور ہیں۔ مغل سلطنت کے دور میں عوامی فلاح، عدل و انصاف اور حکومتی نظم و ضبط نے عوام کی زندگی میں بہتری پیدا کی۔ مغل بادشاہوں کی فتوحات، قیادت، اور ثقافتی اقدامات آج بھی یاد کیے جاتے ہیں اور تاریخ میں سنہری حروف سے درج ہیں۔ مغل قوم کی خدمات، فنون اور عدل و انصاف کے اصول آج بھی ہمیں سکھاتے ہیں کہ حکمرانی میں علم، صبر، حکمت اور انصاف کی کتنی اہمیت ہے۔</p>
+    `;
+
+    document.getElementById("story").innerHTML = storyContent;
+});
+</script>
+
+</body>
+</html>
+
